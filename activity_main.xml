@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/borders"
+    android:baselineAligned="false"
+    android:orientation="vertical"
+    tools:context="com.example.android.autoresizetext.MainActivity">
+
+
+    <TextView
+        android:id="@+id/A"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:background="@drawable/borders"
+        android:contentDescription="AutoResizeText"
+        android:text="The" />
+
+
+    <TextView
+        android:id="@+id/B"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="@drawable/borders"
+        android:contentDescription="AutoResizeText"
+        android:text="Quick Brown Fox" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/C"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/D"
+            android:background="@drawable/borders"
+            android:contentDescription="AutoResizeText"
+            android:text="Jumps Over" />
+
+        <TextView
+            android:id="@+id/D"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/borders"
+            android:contentDescription="AutoResizeText"
+            android:text="The Lazy Dog" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/E"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/borders"
+        android:contentDescription="AutoResizeText"
+        android:text="The Quick Brown fox Jumps Over The Lazy Dog. The Quick Brown fox Jumps Over The Lazy Dog" />
+
+</LinearLayout>
