@@ -2,16 +2,15 @@ package com.example.android.autoresizetextdemo;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.text.TextPaint;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.widget.TextView;
 
-/*  Custom view com.example.android.autoresizetextdemo.AutoResizeTextView
+/*  Custom view AutoResizeTextView
     ------------------------------
     Author Philippe Bartolini
-    Last revision : 2017 11 28
+    Last revision : 2017 12 01
     Licence : MIT https://github.com/PhB-fr/AutoResizeText/blob/master/LICENSE
     Just use this new type of View in your layout XML & have fun !
 */
@@ -30,9 +29,14 @@ public class AutoResizeTextView extends android.support.v7.widget.AppCompatTextV
         super(context, attrs, defStyle);
     }
 
-    protected void onDraw (Canvas canvas) {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        this.autoResizeText(this);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        autoResizeText(this, w, h);
     }
 
     /*  Convert pixels to Sp
@@ -40,46 +44,35 @@ public class AutoResizeTextView extends android.support.v7.widget.AppCompatTextV
     Perhaps the ultimate magical formula, I'm not sure about that but it seems ok ;)
     Based on this Q&A : https://stackoverflow.com/questions/6263250/convert-pixels-to-sp
 */
-    private int pixelsToSp(int px) {
+    private float pixelsToSp(float px) {
         float scaledDensity = getResources().getDisplayMetrics().scaledDensity;
-        float ret = (float) px / scaledDensity * ((float) 2 / 3);
-        return ((int) ret);
+        float ret = px / scaledDensity * ((float) 2 / 3);
+        return (ret);
     }
 
 
-    /*  Resize automatically the text size inside a com.example.android.autoresizetextdemo.AutoResizeTextView
+    /*  Resize automatically the text size inside a AutoResizeTextView
         --------------------------------------------------------------
         Author : Philippe Bartolini (PhB-fr @ GitHub)
-        Last revision : 2017 11 28
+        Last revision : 2017 12 01
         Licence : MIT https://github.com/PhB-fr/AutoResizeText/blob/master/LICENSE
     */
 
-    private void autoResizeText(AutoResizeTextView thisTextView) {
+    private void autoResizeText(AutoResizeTextView thisTextView, int thisTextViewWidth, int thisTextViewHeight) {
 
         float thisTextViewTextSize = thisTextView.getTextSize();
 
+        String thisTextViewText = thisTextView.getText().toString();
 
-        //if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-        //thisTextView.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM);
-        //} else {
+        TextView fakeView = thisTextView;
+        fakeView.setTextSize(pixelsToSp(thisTextViewHeight));
+        Paint fake = fakeView.getPaint();
 
-        int thisTextViewWidth = thisTextView.getWidth();
-        int thisTextViewHeight = thisTextView.getHeight();
-        String thiTextViewText = thisTextView.getText().toString();
+        float ratio = Math.min((float) thisTextViewWidth / fake.measureText(thisTextViewText), 1);
+        float finalSp = pixelsToSp(ratio * thisTextViewHeight);
+        float currentSp = pixelsToSp(thisTextViewTextSize);
 
-        TextView fakeTextView = new TextView(thisTextView.getContext());
-        fakeTextView.setText(thisTextView.getText());
-        fakeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, pixelsToSp(thisTextViewHeight));
-        TextPaint fakeTextViewPaint = fakeTextView.getPaint();
-
-        int fakeTextViewWidth = (int) fakeTextViewPaint.measureText(thiTextViewText, 0, thiTextViewText.length());
-        float ratio = Math.min((float) thisTextViewWidth / fakeTextViewWidth, (float) 1);
-        int finalSp = pixelsToSp((int) (ratio * thisTextViewHeight));
-        int currentSp = pixelsToSp((int) (thisTextViewTextSize));
-
-        thisTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, Math.max(finalSp, currentSp));
-        thisTextView.setGravity(Gravity.CENTER_VERTICAL);
-        //}
+        thisTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, (int) Math.max(finalSp, currentSp));
 
     }
 }

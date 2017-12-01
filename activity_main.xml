@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"
-        android:text="The" />
+        android:text="@string/A" />
 
 
     <com.example.android.autoresizetextdemo.AutoResizeTextView
@@ -22,32 +22,36 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:text="Quick Brown Fox" />
+        android:text="@string/B" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_weight="1">
 
         <com.example.android.autoresizetextdemo.AutoResizeTextView
             android:id="@+id/C"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/D"
-            android:text="Jumps Over" />
+            android:text="@string/C" />
+
+        <Space
+            android:id="@+id/middle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true" />
 
         <com.example.android.autoresizetextdemo.AutoResizeTextView
             android:id="@+id/D"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_alignEnd="@+id/middle"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:text="The Lazy Dog" />
+            android:layout_alignStart="@+id/middle"
+            android:layout_centerInParent="false"
+            android:text="@string/D" />
     </RelativeLayout>
 
     <com.example.android.autoresizetextdemo.AutoResizeTextView
@@ -55,6 +59,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="The Quick Brown fox Jumps Over The Lazy Dog. The Quick Brown fox Jumps Over The Lazy Dog" />
+        android:text="@string/E" />
 
 </LinearLayout>
