@@ -1,0 +1,15 @@
+{
+  "name": "AutoResizeTextView",
+  "description": "Custom TextView resizing the text content according to its bounds.",
+  "version": "2",
+  "main": "AutoResizeTextView.java",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PhB-fr/AutoResizeText"
+  },
+  "keywords": [],
+  "author": "Philippe Bartolini - dev@netline.fr",
+  "license": "MIT",
+  "bugs": {},
+  "homepage": "https://github.com/PhB-fr/AutoResizeText"
+}
